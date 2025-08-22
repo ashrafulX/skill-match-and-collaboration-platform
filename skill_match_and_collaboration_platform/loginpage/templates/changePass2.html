@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <form method="post" class="p-5 rounded shadow-lg bg-white border border-primary position-relative" style="width: 40%;" novalidate>
+        {% csrf_token %}
+        
+        <!-- Decorative Header -->
+        <div class="text-center mb-4">
+            <h2 class="text-primary">Reset Password</h2>
+            <p class="text-muted">Please fill out the fields below to proceed</p>
+        </div>
+
+        <!-- Non-field errors -->
+        {% if form.non_field_errors %}
+            {% for er in form.non_field_errors %}
+                <div class="alert alert-danger text-center" role="alert">
+                    {{ er }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Form fields with Floating Labels -->
+        {% for fm in form %}
+            <div class="form-control mb-4">
+                {{ fm }} <!-- The form field itself -->
+                {{ fm.label_tag }} <!-- The label that floats above the field -->
+                {% if fm.errors %}
+                    <small class="text-danger d-block mt-2">{{ fm.errors|striptags }}</small>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <!-- Submit Button -->
+        <div class="d-grid">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">
+                Submit
+            </button>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

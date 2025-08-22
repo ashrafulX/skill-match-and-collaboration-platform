@@ -1,0 +1,21 @@
+<div class="filters">
+    <h5>Type of Employment</h5>
+    {% for key, value in job_types.items %}
+    <div>
+        <input class="filter-checkbox" data-filter="job_type" value="{{ key }}" type="checkbox" />
+        <label>{{ value }}</label>
+    </div>
+    {% endfor %}
+</div>
+
+<hr>
+
+<div class="categories">
+    <h5>Categories</h5>
+    {% for cat in categories %}
+    <div>
+        <input class="filter-checkbox" data-filter="category" value="{{ cat.id }}" type="checkbox" />
+        <label>{{ cat.name }}</label>
+    </div>
+    {% endfor %}
+</div>

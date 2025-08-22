@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>{{ job.title }}</h2>
+    <p>Posted by {{ job.author.first_name }} {{ job.author.last_name }} | {{ job.created_at|date:"F j, Y" }}</p>
+    <p>{{ job.description }}</p>
+
+    <h4>Applications</h4>
+    {% if applications %}
+        <ul>
+            {% for application in applications %}
+                <li>
+                    <strong>{{ application.full_name }}</strong> - {{ application.status }}
+                    {% if application.status == 'Pending' %}
+                        <a href="{% url 'manage_application' application.id 'accept' %}" class="btn btn-success">Accept</a>
+                        <a href="{% url 'manage_application' application.id 'reject' %}" class="btn btn-danger">Reject</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No applications yet.</p>
+    {% endif %}
+
+    {% if user_application %}
+        <p>Your application status: {{ user_application.status }}</p>
+    {% else %}
+        <h4>Alredy Accepted</h4>
+    {% endif %}
+</div>
+{% endblock %}

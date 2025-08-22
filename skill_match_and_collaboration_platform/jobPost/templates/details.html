@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">{{ job.title }}</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <p><strong>Posted By:</strong> {{ job.author.username }}</p>
+            <p><strong>Posted On:</strong> {{ job.posted_on|date:"F j, Y" }}</p>
+            <p><strong>Job Type:</strong> {{ job.job_type|join:", " }}</p>
+            <p><strong>Required Technical Skills:</strong> 
+                {% for category in job.Required_Technical_Skills.all %}
+                    <span class="badge bg-primary">{{ category.name }}</span>
+                {% empty %}
+                    <span>No categories specified.</span>
+                {% endfor %}
+            </p>
+            <p><strong>Description:</strong></p>
+            <p>{{ job.description }}</p>
+            
+            <!-- <p><strong>Status:</strong> 
+                <span class="badge {% if job.status == 'Find' %}bg-success{% else %}bg-warning{% endif %}">
+                    {{ job.status }}
+                </span>
+            </p> -->
+        </div>
+    </div>
+
+    {% if user.is_authenticated %}
+    {% if job.author.username != user.username %}
+         {% if job.status == 'Not-Find' %}
+        <div class="mt-4">
+            <a href="{% url 'apply_job' job.id %}" class="btn btn-primary">Apply for Job</a>
+        </div>
+        {% else %}
+        <div class="mt-4">
+          <a href="{% url 'apply_job' job.id %}" class="btn btn-danger disabled">Application closed</a>
+      </div>
+      {% endif %}
+      {% endif %}
+    {% else %}
+        <div class="alert alert-warning mt-4">
+            <p>You must be logged in to apply for this job. <a href="{% url 'loginpage' %}" class="alert-link">Login here</a>.</p>
+        </div>
+    
+    {% endif %}
+
+    <div class="mt-4">
+        <a href="{% url 'homepage' %}" class="btn btn-secondary">Back to Homepage</a>
+    </div>
+</div>
+{% endblock %}

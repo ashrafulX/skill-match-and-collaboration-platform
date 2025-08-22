@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Filters -->
+        <div class="col-md-3">
+            {% include 'filters.html' %}
+        </div>
+
+        <!-- Job Listings -->
+        <div class="col-md-9">
+            <div id="filteredJobs">
+                {% include 'ajax/job-list.html' with data=data %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

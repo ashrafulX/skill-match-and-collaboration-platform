@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    margin-top: 20px;
+  }
+
+  .job-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #e3e3e3;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: box-shadow 0.2s ease-in-out;
+  }
+
+  .job-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .job-info {
+    display: flex;
+    align-items: center;
+  }
+
+  .job-logo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+
+  .job-details {
+    max-width: 70%;
+  }
+
+  .job-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .job-meta {
+    font-size: 0.9rem;
+    color: #6c757d;
+  }
+
+  .tags {
+    margin-top: 8px;
+  }
+
+  .tags span {
+    font-size: 0.8rem;
+    display: inline-block;
+    background: #f1f1f1;
+    color: #333;
+    padding: 3px 8px;
+    margin-right: 5px;
+    border-radius: 15px;
+  }
+
+  .tags .full-time {
+    background: #d1f7d1;
+    color: #28a745;
+  }
+
+  .tags .remote {
+    background: #e3f2fd;
+    color: #007bff;
+  }
+
+  .tags .onsite {
+    background: #fff3cd;
+    color: #ffc107;
+  }
+
+  .tags .closed {
+    background: #f8d7da;
+    color: #dc3545;
+  }
+
+  .status-button {
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 15px;
+    cursor: default;
+  }
+
+  .status-closed {
+    background: #f8d7da;
+    color: #dc3545;
+  }
+
+  .status-active {
+    background: #d1f7d1;
+    color: #28a745;
+  }

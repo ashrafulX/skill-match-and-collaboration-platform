@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container py-5">
+    <!-- Hero Section -->
+    <div class="text-center py-5 rounded shadow" style="position: relative; overflow: hidden;">
+        <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(106,17,203,0.8), rgba(37,117,252,0.8)), url('{% static 'background.jpg' %}') no-repeat center center/cover; z-index: 1;"></div>
+        <div style="position: relative; z-index: 2; color: white;">
+            <h1 class="display-3 fw-bold animate__animated animate__fadeInDown">Welcome to <span style="color: #ffe259;">TalentDock</span></h1>
+            <p class="lead mt-3 animate__animated animate__fadeInUp animate__delay-1s">
+                Connect. Collaborate. Grow. Your journey to innovation and teamwork begins here.
+            </p>
+            <a href="#how-it-works" class="btn btn-light btn-lg mt-3 shadow animate__animated animate__zoomIn animate__delay-2s">Learn More</a>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row text-center py-5 ">
+        <div class="col-lg-4 mb-4">
+            <div class="p-4 rounded shadow-sm feature-card step-box p-4 rounded-3" style="background: #f8f9fa; transition: transform 0.3s, box-shadow 0.3s;">
+                <i class="bi bi-people-fill display-3 text-primary"></i>
+                <h3 class="mt-3 text-primary">Connect</h3>
+                <p>Discover like-minded professionals and build meaningful collaborations.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="p-4 rounded shadow-sm feature-card step-box p-4 rounded-3" style="background: #f8f9fa; transition: transform 0.3s, box-shadow 0.3s;">
+                <i class="bi bi-lightbulb-fill display-3 text-success"></i>
+                <h3 class="mt-3 text-success">Collaborate</h3>
+                <p>Work together to turn ideas into reality through effective teamwork.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="p-4 rounded shadow-sm feature-card step-box p-4 rounded-3" style="background: #f8f9fa; transition: transform 0.3s, box-shadow 0.3s;">
+                <i class="bi bi-graph-up-arrow display-3 text-danger"></i>
+                <h3 class="mt-3 text-danger">Grow</h3>
+                <p>Expand your knowledge, enhance your skills, and achieve your goals.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Our Mission Section -->
+<div class="py-5 rounded" style="background: linear-gradient(135deg, #6a11cb, #2575fc); color: #fff;">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold animate__animated animate__fadeIn" style="font-size: 3rem; letter-spacing: 2px;">Our Mission</h2>
+        </div>
+        <p class="lead text-center text-light animate__animated animate__fadeIn animate__delay-1s" style="font-size: 1.2rem; line-height: 1.8;">
+            At TalentDock, we believe in the power of collaboration and the importance of shared expertise.
+            Together, we can bridge gaps in skills, promote innovation, and inspire creativity.
+        </p>
+        <div class="text-center mt-5">
+            <button class="btn btn-lg btn-light animate__animated animate__bounceIn">Join Us</button>
+        </div>
+    </div>
+</div>
+
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="bg-light py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold display-4 text-primary">How It Works</h2>
+                <p class="text-muted fs-5">A simple process to turn ideas into reality</p>
+            </div>
+            <div class="row g-5">
+                <div class="col-md-3 text-center">
+                    <div class="step-box shadow-lg p-4 rounded-3 bg-white">
+                        <div class="icon-container mb-3">
+                            <i class="fas fa-user-plus fa-3x text-primary"></i>
+                        </div>
+                        <h5 class="fw-semibold">1. Sign Up</h5>
+                        <p class="text-muted">Create your profile and showcase your skills.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="step-box shadow-lg p-4 rounded-3 bg-white">
+                        <div class="icon-container mb-3">
+                            <i class="fas fa-search fa-3x text-primary"></i>
+                        </div>
+                        <h5 class="fw-semibold">2. Explore</h5>
+                        <p class="text-muted">Discover projects and collaborators that match your expertise.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="step-box shadow-lg p-4 rounded-3 bg-white">
+                        <div class="icon-container mb-3">
+                            <i class="fas fa-handshake fa-3x text-primary"></i>
+                        </div>
+                        <h5 class="fw-semibold">3. Connect</h5>
+                        <p class="text-muted">Engage and communicate seamlessly with your matches.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="step-box shadow-lg p-4 rounded-3 bg-white">
+                        <div class="icon-container mb-3">
+                            <i class="fas fa-rocket fa-3x text-primary"></i>
+                        </div>
+                        <h5 class="fw-semibold">4. Collaborate</h5>
+                        <p class="text-muted">Work together to bring ideas to life and achieve success.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+        <style>
+          #how-it-works {
+              background: linear-gradient(135deg, #f9f9f9, #ffffff);
+          }
+          .step-box {
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+          .step-box:hover {
+              transform: translateY(-10px);
+              box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          }
+          .icon-container {
+              display: inline-flex;
+              justify-content: center;
+              align-items: center;
+              width: 80px;
+              height: 80px;
+              border-radius: 50%;
+              background-color: #e3f2fd;
+          }
+        </style>
+      </section>
+      
+
+    <!-- Meet Our Team Section -->
+    <section id="team_member" class="py-5">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold display-4 text-primary">Meet Our Team</h2>
+                <p class="text-muted fs-5">The brilliant minds behind our success</p>
+            </div>
+            <div class="row g-5 text-center">
+                <div class="col-md-4">
+                    <div class="team-card shadow-lg p-4 rounded-3 bg-white" style="transition: transform 0.3s, box-shadow 0.3s;">
+                        <img src="{% static 'Tanbirbroo.jpg' %}" class="rounded-circle mb-3 shadow img-fluid" alt="Tanbir Hasan" style="width: 120px; height: 120px; object-fit: cover; border: 5px solid #007bff;">
+                        <h5 class="fw-bold">Tanbir Hasan</h5>
+                        <p class="text-muted">Co-Founder & Lead Developer</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-card shadow-lg p-4 rounded-3 bg-white" style="transition: transform 0.3s, box-shadow 0.3s;">
+                        <img src="{% static 'nosu.jpg' %}" class="rounded-circle mb-3 shadow img-fluid" alt="Ashraful Islam" style="width: 120px; height: 120px; object-fit: cover; border: 5px solid #28a745;">
+                        <h5 class="fw-bold">Ashraful Islam</h5>
+                        <p class="text-muted">CEO</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-card shadow-lg p-4 rounded-3 bg-white" style="transition: transform 0.3s, box-shadow 0.3s;">
+                        <img src="{% static 'arafat.jpg' %}" class="rounded-circle mb-3 shadow img-fluid" alt="Arafat Kabir Abir" style="width: 120px; height: 120px; object-fit: cover; border: 5px solid #063f6e;">
+                        <h5 class="fw-bold">Arafat Kabir Abir</h5>
+                        <p class="text-muted">Marketing Head</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-5 text-center mt-4 d-flex justify-content-evenly">
+                <div class="col-md-4">
+                    <div class="team-card shadow-lg p-4 rounded-3 bg-white" style="transition: transform 0.3s, box-shadow 0.3s;">
+                        <img src="{% static 'kazii.jpg' %}" class="rounded-circle mb-3 shadow img-fluid" alt="Bellal Kazi" style="width: 120px; height: 120px; object-fit: cover; border: 5px solid #cf23c7;">
+                        <h5 class="fw-bold">Bellal Kazi</h5>
+                        <p class="text-muted">Community Manager</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-card shadow-lg p-4 rounded-3 bg-white" style="transition: transform 0.3s, box-shadow 0.3s;">
+                        <img src="{% static 'kamrul.png' %}" class="rounded-circle mb-3 shadow img-fluid" alt="Kamrul Hasan" style="width: 120px; height: 120px; object-fit: cover; border: 5px solid #17a2b8;">
+                        <h5 class="fw-bold">Kamrul Hasan</h5>
+                        <p class="text-muted">Chief Technology Officer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <style>
+            #team_member {
+                background: linear-gradient(135deg, #f9f9f9, #ffffff);
+            }
+            .team-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+        </style>
+    </section>
+    
+
+    <!-- Call to Action -->
+    <div class="text-center py-5 rounded shadow" style="background: linear-gradient(135deg, #6a11cb, #2575fc); color: white;">
+        <h2 class="fw-bold">Join the SkillConnect Community</h2>
+        <p class="lead mt-3">
+            Start your journey today and unlock endless opportunities for collaboration and growth.
+        </p>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'signup' %}" class="btn btn-warning btn-lg mt-3 shadow">Get Started</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

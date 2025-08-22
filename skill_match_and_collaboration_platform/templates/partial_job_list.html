@@ -1,0 +1,34 @@
+<h4>All Jobs</h4>
+<p>Showing {{ data.count }} results</p>
+
+{% if data %}
+{% for job in data %}
+<div class="job-card">
+  <div class="job-info">
+    <div class="job-logo">
+      <img src="https://via.placeholder.com/60" alt="Company Logo">
+    </div>
+    <div class="job-details">
+      <h5>{{ job.title }}</h5>
+      <p>Posted by {{ job.author.get_full_name }}</p>
+
+      <div class="categories tags">
+        <strong>Categories:</strong>
+        {% for category in job.Categories.all %}
+        <span>{{ category.name }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="tags">
+        <strong>Job Type:</strong>
+        {% for type in job.job_type %}
+        <span>{{ type }}</span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% else %}
+<p>No jobs found matching your filters.</p>
+{% endif %}

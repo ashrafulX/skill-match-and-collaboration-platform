@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">Application Details</h2>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <p><strong>Full Name:</strong> {{ application.full_name }}</p>
+            <p><strong>Email:</strong> <a href="mailto:{{ application.email }}">{{ application.email }}</a></p>
+            <p><strong>Phone:</strong> <a href="tel:{{ application.phone }}">{{ application.phone }}</a></p>
+            <p><strong>LinkedIn URL:</strong> 
+                <a href="{{ application.LinkedIn_URL }}" target="_blank" class="text-decoration-none">{{ application.LinkedIn_URL }}</a>
+            </p>
+            <p><strong>Additional Information:</strong> {{ application.Additional_information }}</p>
+            <p><strong>Application Status:</strong> 
+                <span class="badge {% if application.status == 'Pending' %}bg-warning{% elif application.status == 'Accepted' %}bg-success{% else %}bg-danger{% endif %}">
+                    {{ application.status }}
+                </span>
+            </p>
+        </div>
+    </div>
+
+    {% if application.JobPost.author == user %}
+        <div class="mt-4">
+            <h4 class="mb-3">Manage Application</h4>
+            {% if application.JobPost.status == 'Not-Find' %}
+            {% if application.status == 'Pending' %}
+                <a href="{% url 'manage_application' application.id 'accept' %}" class="btn btn-success me-2">Accept</a>
+                <a href="{% url 'manage_application' application.id 'reject' %}" class="btn btn-danger">Reject</a>
+                {% endif %}
+            {% else %}
+                <div class="alert alert-info" role="alert">
+                    Status is already <strong>Approved</strong>.
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class="mt-4">
+        <a href="{% url 'job_detail' application.JobPost.id %}" class="btn btn-secondary">Back to Job Post</a>
+    </div>
+</div>
+{% endblock %}

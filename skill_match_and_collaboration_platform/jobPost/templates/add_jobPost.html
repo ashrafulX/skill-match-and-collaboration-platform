@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{%  load crispy_forms_tags %}
+{% block content %}
+
+<style>
+    .jonForm {
+        width: 50%;
+        margin: 2rem auto;
+        padding: 2rem;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    form h1 {
+        text-align: center;
+        color: #333;
+        font-family: 'Arial', sans-serif;
+        margin-bottom: 1.5rem;
+    }
+
+    .jobbtn {
+        display: block;
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #ff9800;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #e68a00;
+    }
+</style>
+
+<form method="post" class="jonForm" >
+    <h1>Add Job</h1>
+    {% csrf_token %}
+    {{form | crispy}}
+
+    <button class="btn btn-warning jobbtn">Submit</button>
+</form>
+
+{% endblock %}

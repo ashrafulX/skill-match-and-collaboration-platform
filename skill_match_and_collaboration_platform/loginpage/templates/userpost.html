@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-9">
+      <h4>All Jobs</h4>
+      <p>Showing {{ data.count }} results</p>
+
+      {% for job in data %}
+      <div class="job-card position-relative">
+        <!-- Three-dot menu -->
+        <div class="dropdown position-absolute top-0 end-0 m-2">
+          <button
+            class="btn btn-link "
+            type="button"
+            id="dropdownMenuButton{{ job.id }}"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+          <i class="fas fa-ellipsis-vertical"></i> <!-- Updated to a common FontAwesome class -->
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ job.id }}">
+            {% if user.is_authenticated %}
+              <li><a class="dropdown-item" href="{% url 'edit_job' job.id %}">Edit</a></li>
+              <li>
+                <form method="post" action="{% url 'delete_job' job.id %}" class="d-inline">
+                  {% csrf_token %}
+                  <button type="submit" class="dropdown-item text-danger">Delete</button>
+                </form>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+
+        <div class="job-info d-flex">
+          <div class="job-logo">
+            <img src="https://via.placeholder.com/60" alt="Company Logo">
+          </div>
+          <div class="job-details">
+            <h5 class="job-title">{{ job.title }}</h5>
+            <p class="job-meta">Posted by {{ job.author.username }}</p>
+            
+            <!-- Job Categories -->
+            <div class="categories tags">
+              <strong>Categories:</strong>
+              {% for category in job.Categories.all %}
+              <span class="badge ">{{ category.name }}</span>
+              {% empty %}
+              <span class="text-muted">No categories assigned</span>
+              {% endfor %}
+            </div>
+            
+            <!-- Job Types -->
+            <div class="tags">
+              <strong>Job Type:</strong>
+              {% for type in job.job_type %}
+              <span class="badge">{{ type }}</span>
+              {% empty %}
+              <span class="text-muted">No job types assigned</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <a href="{% url 'job_detail' job.id %}" class="btn btn-primary mt-3">View Details</a>
+      </div>
+      {% empty %}
+      <div class="alert alert-warning text-center mt-4">
+        No jobs found. Please check back later.
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

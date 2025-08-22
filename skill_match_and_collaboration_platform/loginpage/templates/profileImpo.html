@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post" style="width: 40%; margin: auto;" class="pt-5" novalidate>
+    <!-- {{form|crispy}} -->
+     {% csrf_token %}
+    {% for fm in form %}
+    {{fm.label_tag}}
+    {{fm}}
+    {{fm.errors|striptags}}
+</br>
+    {% endfor %}
+
+    <a class="btn btn-primary" href="{% url 'editProfile' %}">Edit your profile</a>
+</form>
+{% endblock %}

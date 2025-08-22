@@ -1,0 +1,393 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title%} {% endblock%}</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/job-filter.js' %}"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      .navbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+  
+        .button {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #3a3a3a; /* Slightly lighter for contrast */
+          border-radius: 50%;
+          color: white;
+          border: none;
+          cursor: pointer;
+          transition: transform 0.2s, background-color 0.2s;
+          position: relative;
+        }
+  
+        .bellicon{
+          margin-left: 370px;
+        }
+       
+        .bell {
+          width: 22px; /* Larger for better visibility */
+          height: 22px;
+        }
+  
+        .bell path {
+          fill: rgb(0, 255, 127); /* Bright green for good visibility */
+          transition: fill 0.2s;
+        }
+  
+        .profile-icon {
+          margin-left: 2px; /* Space between bell and profile button */
+        }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9fafb;
+        margin: 0;
+        padding: 0;
+      }
+  
+      .container {
+        margin-top: 20px;
+      }
+  
+      .job-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        padding: 15px;
+        border: 1px solid #e3e3e3;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        transition: box-shadow 0.2s ease-in-out;
+      }
+  
+      .job-card:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+  
+      .job-info {
+        display: flex;
+        align-items: center;
+      }
+  
+      .job-logo img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+      }
+  
+      .job-details {
+        max-width: 70%;
+      }
+  
+      .job-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 0;
+      }
+  
+      .job-meta {
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+  
+      .tags {
+        margin-top: 8px;
+      }
+  
+      .tags span {
+        font-size: 0.8rem;
+        display: inline-block;
+        background: #f1f1f1;
+        color: #333;
+        padding: 3px 8px;
+        margin-right: 5px;
+        border-radius: 15px;
+      }
+  
+      .tags .full-time {
+        background: #d1f7d1;
+        color: #28a745;
+      }
+  
+      .tags .remote {
+        background: #e3f2fd;
+        color: #007bff;
+      }
+  
+      .tags .onsite {
+        background: #fff3cd;
+        color: #ffc107;
+      }
+  
+      .tags .closed {
+        background: #f8d7da;
+        color: #dc3545;
+      }
+  
+      .status-button {
+        font-size: 0.9rem;
+        font-weight: bold;
+        padding: 5px 12px;
+        border: none;
+        border-radius: 15px;
+        cursor: default;
+      }
+  
+      .status-closed {
+        background: #f8d7da;
+        color: #dc3545;
+      }
+  
+      .status-active {
+        background: #d1f7d1;
+        color: #28a745;
+      }
+    </style>
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid container">
+          <a class="navbar-brand text-white" href="{% url 'homepage' %}">
+            <img src="{% static 'logo.png' %}" alt="">
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link active text-white"
+                  aria-current="page"
+                  href="{% url 'homepage' %}"
+                >
+                  Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active text-white"
+                  aria-current="page"
+                  href="{% url 'find_job' %}"
+                >
+                  Find Job
+                </a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'add_job' %}">
+                  Add Job
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'addCat' %}">Add Skills</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'userpost' %}">
+                  My Post
+                </a>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a
+                  class="nav-link active text-white"
+                  aria-current="page"
+                  href="{% url 'aboutpage' %}"
+                >
+                  About Us
+                </a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item bellicon">
+                <a 
+                  class="button bellicon text-white btn btn-primary profile-icon" 
+                  href="{% url 'notifications' %}" 
+                  role="button"  
+                  aria-expanded="false"
+                >
+                  <svg class="bell" viewBox="0 0 448 512">
+                    <path
+                      d="M224 0c-17.7 0-32 14.3-32 32V49.9C119.5 61.4 64 124.2 64 200v33.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416H424c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V200c0-75.8-55.5-138.6-128-150.1V32c0-17.7-14.3-32-32-32zm0 96h8c57.4 0 104 46.6 104 104v33.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V200c0-57.4 46.6-104 104-104h8zm64 352H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z"
+                    ></path>
+                  </svg>
+                </a>
+              {% endif %}
+            </ul>
+            <form class="d-flex" role="search">
+              {% if user.is_authenticated %}
+              
+              <li class="nav-item dropdown">
+                <a
+                  class="btn btn-primary text-white profile-icon "
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-user-circle me-2"></i> Profile
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end shadow">
+                  <!-- User Info Section -->
+                  <li class="dropdown-header text-center bg-light py-3">
+                    <div class="d-flex flex-column align-items-center">
+                      <i class="fas fa-user-circle fs-3 text-primary"></i>
+                      <h6 class="mt-2 mb-0 text-dark">
+                        {{ user.first_name }} {{ user.last_name }}
+                      </h6>
+                      <small class="text-muted">Your Profile</small>
+                    </div>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <!-- Navigation Links -->
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="{% url 'showProfile' %}">
+                      <i class="fas fa-user me-2 text-primary"></i> View Profile
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="{% url 'changePass' %}">
+                      <i class="fas fa-lock me-2 text-danger"></i> Change Password
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="{% url 'delete_profile' %}">
+                      <i class="fas fa-trash-alt me-2 text-warning"></i> Delete Profile
+                    </a>
+                    
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <!-- Logout Section -->
+                  <li class="text-center">
+                    <a class="btn btn-outline-danger w-75" href="{% url 'logout' %}">
+                      <i class="fas fa-sign-out-alt me-2"></i> LogOut
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+
+
+              {% else %}
+              <div class="pe-3">
+                <a
+                  class="btn btn-outline-success text-white"
+                  href="{% url 'signup' %}"
+                >
+                  SignUp
+                </a>
+              </div>
+              <a
+                class="btn btn-outline-success text-white"
+                href="{% url 'loginpage' %}"
+              >
+                Login
+              </a>
+              {% endif %}
+            </form>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="">{% block content %} {% endblock %}</main>
+
+    <footer class="bg-dark text-light pt-5 pb-4">
+      <div class="container">
+        <div class="row">
+          <!-- Contact Information -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <h5 class="text-uppercase fw-bold mb-3">TalentDock</h5>
+            <p>
+              <i class="fas fa-map-marker-alt me-2"></i> Dhaka, Bangladesh
+            </p>
+            <p>
+              <i class="fas fa-envelope me-2"></i> support@TalentDock.site
+            </p>
+            <p>
+              <i class="fas fa-phone me-2"></i> 01307-802117, 01876-226072 <br>
+              <span class="text-muted">(10 AM - 5 PM)</span>
+            </p>
+          </div>
+    
+          <!-- Useful Links -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <h5 class="text-uppercase fw-bold mb-3">Useful Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-light text-decoration-none">Refund Policy</a></li>
+              <li><a href="#" class="text-light text-decoration-none">Terms and Conditions</a></li>
+              <li><a href="#" class="text-light text-decoration-none">Privacy Policy</a></li>
+              <li><a href="#" class="text-light text-decoration-none">About Us</a></li>
+              <li><a href="#" class="text-light text-decoration-none">Success Stories</a></li>
+            </ul>
+          </div>
+    
+          <!-- Social Media Links -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <h5 class="text-uppercase fw-bold mb-3">Connect with us</h5>
+            <div>
+              <a href="https://www.facebook.com/tanbir.hasan.959044" class="text-light me-3"><i class="fab fa-facebook fa-lg"></i></a>
+              <a href="#" class="text-light me-3"><i class="fab fa-instagram fa-lg"></i></a>
+              <a href="#" class="text-light me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+              <a href="https://github.com/Tanbir-Hasan-247" class="text-light"><i class="fab fa-github fa-lg"></i></a>
+            </div>
+          </div>
+        </div>
+    
+        <hr class="bg-light">
+    
+        <!-- Footer Bottom -->
+        <div class="row align-items-center">
+          <div class="col-lg-12 text-center">
+            <p class="mb-0">&copy; 2025 TalentDock.site | All Rights Reserved</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
