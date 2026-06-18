@@ -39,7 +39,7 @@ pip
 **Installation**
 
 Clone the repo
-      git clone https://github.com/your_username/skill_match_and_collaboration_platform.git
+      git clone https://github.com/ashrafulx/skill_match_and_collaboration_platform.git
 
 **Navigate to the project directory**
                         cd skill_match_and_collaboration_platform
