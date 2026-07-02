@@ -1,0 +1,9 @@
+asgiref==3.11.1
+crispy-bootstrap5==2026.3
+Django==6.0.6
+django-crispy-forms==2.6
+django-multiselectfield==1.0.1
+pillow==12.3.0
+python-decouple==3.8
+sqlparse==0.5.5
+tzdata==2026.2

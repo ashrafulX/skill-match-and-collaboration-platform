@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+env/
+# Django
+db.sqlite3
+db.sqlite3-journal
+media/
+# Environment Variables
+.env
+.env.*
+# Logs
+*.log
+.vscode/
+# Windows
+Thumbs.db
+Desktop.ini
+# Temporary Files
+*.tmp
+*.temp
+node_modules/
