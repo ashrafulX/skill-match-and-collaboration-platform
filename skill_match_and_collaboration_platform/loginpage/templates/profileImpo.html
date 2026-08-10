@@ -1,16 +1,79 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% block content %}
-<form method="post" style="width: 40%; margin: auto;" class="pt-5" novalidate>
-    <!-- {{form|crispy}} -->
-     {% csrf_token %}
-    {% for fm in form %}
-    {{fm.label_tag}}
-    {{fm}}
-    {{fm.errors|striptags}}
-</br>
-    {% endfor %}
 
-    <a class="btn btn-primary" href="{% url 'editProfile' %}">Edit your profile</a>
-</form>
+{% block content %}
+<div class="max-w-xl mx-auto my-12 px-4 sm:px-6">
+    <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+        
+        <!-- Profile Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 sm:p-8 text-white text-center shadow-sm">
+            <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3 backdrop-blur-sm border-2 border-white/20">
+                <i class="fas fa-user-circle text-4xl text-blue-100"></i>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Your Profile</h2>
+            <p class="text-blue-100 text-sm mt-1">Review your personal account information</p>
+        </div>
+
+        <!-- Form / Info Body -->
+        <div class="p-6 sm:p-10">
+            <form method="post" class="space-y-6" novalidate>
+                {% csrf_token %}
+
+                <!-- Form Fields Loop -->
+                <div class="space-y-5">
+                    {% for fm in form %}
+                        <div class="space-y-2">
+                            <label for="{{ fm.id_for_label }}" class="block text-sm font-bold text-gray-700">
+                                {{ fm.label }}
+                            </label>
+                            
+                            <div class="relative">
+                                {{ fm }}
+                            </div>
+
+                            {% if fm.errors %}
+                                <p class="text-xs text-rose-600 font-semibold mt-1">{{ fm.errors|striptags }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Action Button -->
+                <div class="pt-4">
+                    <a href="{% url 'editProfile' %}" 
+                       class="w-full inline-flex justify-center items-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-3.5 rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
+                        <i class="fas fa-user-edit mr-2.5"></i> Edit your profile
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Input styling for Django form fields -->
+<style>
+    input[type="text"],
+    input[type="email"],
+    input[type="url"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border-radius: 1rem;
+        border: 1px solid #e5e7eb;
+        background-color: #f9fafb;
+        font-size: 0.95rem;
+        transition: all 0.2s ease-in-out;
+        outline: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="url"]:focus,
+    textarea:focus,
+    select:focus {
+        border-color: #2563eb;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+    }
+</style>
 {% endblock %}

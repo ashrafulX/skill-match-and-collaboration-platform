@@ -1,31 +1,94 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div class="container">
-    <h2>{{ job.title }}</h2>
-    <p>Posted by {{ job.author.first_name }} {{ job.author.last_name }} | {{ job.created_at|date:"F j, Y" }}</p>
-    <p>{{ job.description }}</p>
+<div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
+    <!-- Header Section -->
+    <div class="bg-white rounded-3xl shadow-lg border border-gray-100 p-6 sm:p-8 mb-8 space-y-4">
+        <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">{{ job.title }}</h2>
+        <div class="flex items-center text-sm text-gray-500 font-medium">
+            <i class="fas fa-user-circle text-blue-500 mr-2 text-base"></i>
+            <span>Posted by <strong class="text-gray-700">{{ job.author.first_name }} {{ job.author.last_name }}</strong></span>
+            <span class="mx-2">•</span>
+            <i class="far fa-calendar-alt text-blue-500 mr-2 text-base"></i>
+            <span>{{ job.created_at|date:"F j, Y" }}</span>
+        </div>
+        <p class="text-gray-600 bg-gray-50/70 p-4 rounded-2xl text-sm sm:text-base border border-gray-100 leading-relaxed">
+            {{ job.description }}
+        </p>
+    </div>
 
-    <h4>Applications</h4>
-    {% if applications %}
-        <ul>
-            {% for application in applications %}
-                <li>
-                    <strong>{{ application.full_name }}</strong> - {{ application.status }}
-                    {% if application.status == 'Pending' %}
-                        <a href="{% url 'manage_application' application.id 'accept' %}" class="btn btn-success">Accept</a>
-                        <a href="{% url 'manage_application' application.id 'reject' %}" class="btn btn-danger">Reject</a>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No applications yet.</p>
-    {% endif %}
-
+    <!-- User's Own Application Status Section -->
     {% if user_application %}
-        <p>Your application status: {{ user_application.status }}</p>
+        <div class="mb-8 p-5 bg-blue-50/60 border border-blue-100 rounded-2xl flex items-center justify-between">
+            <span class="text-sm font-semibold text-gray-700">Your application status:</span>
+            <span class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-bold
+                {% if user_application.status == 'Pending' %}
+                    bg-amber-100 text-amber-800 border border-amber-200
+                {% elif user_application.status == 'Accepted' %}
+                    bg-emerald-100 text-emerald-800 border border-emerald-200
+                {% else %}
+                    bg-rose-100 text-rose-800 border border-rose-200
+                {% endif %}">
+                {{ user_application.status }}
+            </span>
+        </div>
     {% else %}
-        <h4>Alredy Accepted</h4>
+        <div class="mb-8 p-4 bg-emerald-50 border border-emerald-100 text-emerald-800 rounded-2xl text-sm font-bold flex items-center">
+            <i class="fas fa-check-circle text-emerald-500 text-lg mr-2.5"></i> Already Accepted
+        </div>
     {% endif %}
+
+    <!-- Applications List Section -->
+    <div class="space-y-4">
+        <h4 class="text-2xl font-extrabold text-gray-900 tracking-tight mb-4">Applications</h4>
+        
+        {% if applications %}
+            <div class="space-y-3">
+                {% for application in applications %}
+                    <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-base">
+                                {{ application.full_name|first|upper }}
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-gray-900 text-base">{{ application.full_name }}</h5>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold mt-1
+                                    {% if application.status == 'Pending' %}
+                                        bg-amber-100 text-amber-800 border border-amber-200
+                                    {% elif application.status == 'Accepted' %}
+                                        bg-emerald-100 text-emerald-800 border border-emerald-200
+                                    {% else %}
+                                        bg-rose-100 text-rose-800 border border-rose-200
+                                    {% endif %}">
+                                    {{ application.status }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        {% if application.status == 'Pending' %}
+                            <div class="flex items-center space-x-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-100">
+                                <a href="{% url 'manage_application' application.id 'accept' %}" 
+                                   class="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-full shadow-sm shadow-emerald-600/20 transition-all duration-200">
+                                    <i class="fas fa-check mr-1.5"></i> Accept
+                                </a>
+                                <a href="{% url 'manage_application' application.id 'reject' %}" 
+                                   class="inline-flex items-center justify-center bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-4 py-2 rounded-full shadow-sm shadow-rose-600/20 transition-all duration-200">
+                                    <i class="fas fa-times mr-1.5"></i> Reject
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="bg-white rounded-3xl border border-gray-100 p-10 text-center shadow-sm">
+                <div class="w-14 h-14 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-inbox text-xl"></i>
+                </div>
+                <p class="text-gray-500 font-medium text-sm">No applications yet.</p>
+            </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

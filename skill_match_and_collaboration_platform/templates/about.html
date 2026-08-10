@@ -1,6 +1,220 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<div class="space-y-16 py-6">
+    
+    <!-- Hero Section -->
+    <div class="relative overflow-hidden rounded-3xl shadow-2xl py-20 px-6 text-center">
+        <!-- Background Gradient & Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-purple-800/90 to-blue-600/90 z-10"></div>
+        <div 
+            class="absolute inset-0 bg-cover bg-center z-0" 
+            style="background-image: url('{% static 'background.jpg' %}');"
+        ></div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-20 text-white max-w-3xl mx-auto space-y-4">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
+                Welcome to <span class="text-amber-300">TalentDock</span>
+            </h1>
+            <p class="text-lg md:text-xl text-purple-100 font-light leading-relaxed">
+                Connect. Collaborate. Grow. Your journey to innovation and teamwork begins here.
+            </p>
+            <div class="pt-2">
+                <a 
+                    href="#how-it-works" 
+                    class="inline-block bg-white text-gray-900 font-bold px-8 py-3 rounded-full shadow-lg hover:bg-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                >
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Connect -->
+        <div class="bg-slate-50 border border-gray-100 p-8 rounded-3xl text-center shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <i class="fas fa-users text-4xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Connect</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">Discover like-minded professionals and build meaningful collaborations.</p>
+        </div>
+
+        <!-- Collaborate -->
+        <div class="bg-slate-50 border border-gray-100 p-8 rounded-3xl text-center shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <i class="fas fa-lightbulb text-4xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Collaborate</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">Work together to turn ideas into reality through effective teamwork.</p>
+        </div>
+
+        <!-- Grow -->
+        <div class="bg-slate-50 border border-gray-100 p-8 rounded-3xl text-center shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group">
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <i class="fas fa-chart-line text-4xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Grow</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">Expand your knowledge, enhance your skills, and achieve your goals.</p>
+        </div>
+    </div>
+
+    <!-- Our Mission Section -->
+    <div class="bg-gradient-to-r from-purple-700 to-blue-600 rounded-3xl py-16 px-6 sm:px-12 text-white shadow-xl text-center">
+        <div class="max-w-3xl mx-auto space-y-6">
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-wider uppercase">Our Mission</h2>
+            <p class="text-lg sm:text-xl text-purple-100 font-light leading-relaxed">
+                At TalentDock, we believe in the power of collaboration and the importance of shared expertise.
+                Together, we can bridge gaps in skills, promote innovation, and inspire creativity.
+            </p>
+            <div class="pt-4">
+                <a href="{% url 'signup' %}" class="inline-block bg-white text-purple-700 font-bold px-8 py-3 rounded-full shadow-lg hover:bg-purple-50 hover:shadow-xl hover:scale-105 transition-all duration-300">
+                    Join Us
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-12 bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-blue-600 mb-2">How It Works</h2>
+            <p class="text-gray-500 text-lg">A simple process to turn ideas into reality</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Step 1 -->
+            <div class="bg-white p-8 rounded-3xl text-center shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 group">
+                <div class="w-20 h-20 mx-auto rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                    <i class="fas fa-user-plus text-3xl"></i>
+                </div>
+                <h5 class="text-xl font-bold text-gray-900 mb-2">1. Sign Up</h5>
+                <p class="text-gray-500 text-sm">Create your profile and showcase your skills.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="bg-white p-8 rounded-3xl text-center shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 group">
+                <div class="w-20 h-20 mx-auto rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                    <i class="fas fa-search text-3xl"></i>
+                </div>
+                <h5 class="text-xl font-bold text-gray-900 mb-2">2. Explore</h5>
+                <p class="text-gray-500 text-sm">Discover projects and collaborators that match your expertise.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="bg-white p-8 rounded-3xl text-center shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 group">
+                <div class="w-20 h-20 mx-auto rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                    <i class="fas fa-handshake text-3xl"></i>
+                </div>
+                <h5 class="text-xl font-bold text-gray-900 mb-2">3. Connect</h5>
+                <p class="text-gray-500 text-sm">Engage and communicate seamlessly with your matches.</p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="bg-white p-8 rounded-3xl text-center shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 group">
+                <div class="w-20 h-20 mx-auto rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                    <i class="fas fa-rocket text-3xl"></i>
+                </div>
+                <h5 class="text-xl font-bold text-gray-900 mb-2">4. Collaborate</h5>
+                <p class="text-gray-500 text-sm">Work together to bring ideas to life and achieve success.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet Our Team Section -->
+    <section id="team_member" class="py-12 bg-gradient-to-br from-gray-50 to-white rounded-3xl px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-blue-600 mb-2">Meet Our Team</h2>
+            <p class="text-gray-500 text-lg">The brilliant minds behind our success</p>
+        </div>
+
+        <!-- First Row (3 cards) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mb-8">
+            <!-- Tanbir Hasan -->
+            <div class="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100">
+                <img 
+                    src="{% static 'Tanbirbroo.jpg' %}" 
+                    class="w-28 h-28 mx-auto rounded-full object-cover border-4 border-blue-600 shadow-md mb-4" 
+                    alt="Tanbir Hasan"
+                >
+                <h5 class="text-xl font-bold text-gray-900">Tanbir Hasan</h5>
+                <p class="text-gray-500 text-sm">Co-Founder & Lead Developer</p>
+            </div>
+
+            <!-- Ashraful Islam -->
+            <div class="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100">
+                <img 
+                    src="{% static 'nosu.jpg' %}" 
+                    class="w-28 h-28 mx-auto rounded-full object-cover border-4 border-emerald-500 shadow-md mb-4" 
+                    alt="Ashraful Islam"
+                >
+                <h5 class="text-xl font-bold text-gray-900">Ashraful Islam</h5>
+                <p class="text-gray-500 text-sm">CEO</p>
+            </div>
+
+            <!-- Arafat Kabir Abir -->
+            <div class="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100">
+                <img 
+                    src="{% static 'arafat.jpg' %}" 
+                    class="w-28 h-28 mx-auto rounded-full object-cover border-4 border-sky-800 shadow-md mb-4" 
+                    alt="Arafat Kabir Abir"
+                >
+                <h5 class="text-xl font-bold text-gray-900">Arafat Kabir Abir</h5>
+                <p class="text-gray-500 text-sm">Marketing Head</p>
+            </div>
+        </div>
+
+        <!-- Second Row (2 cards centered) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center max-w-3xl mx-auto">
+            <!-- Bellal Kazi -->
+            <div class="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100">
+                <img 
+                    src="{% static 'kazii.jpg' %}" 
+                    class="w-28 h-28 mx-auto rounded-full object-cover border-4 border-fuchsia-600 shadow-md mb-4" 
+                    alt="Bellal Kazi"
+                >
+                <h5 class="text-xl font-bold text-gray-900">Bellal Kazi</h5>
+                <p class="text-gray-500 text-sm">Community Manager</p>
+            </div>
+
+            <!-- Kamrul Hasan -->
+            <div class="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100">
+                <img 
+                    src="{% static 'kamrul.png' %}" 
+                    class="w-28 h-28 mx-auto rounded-full object-cover border-4 border-cyan-500 shadow-md mb-4" 
+                    alt="Kamrul Hasan"
+                >
+                <h5 class="text-xl font-bold text-gray-900">Kamrul Hasan</h5>
+                <p class="text-gray-500 text-sm">Chief Technology Officer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <div class="bg-gradient-to-r from-purple-700 to-blue-600 rounded-3xl py-16 px-6 text-center text-white shadow-xl space-y-4">
+        <h2 class="text-3xl sm:text-4xl font-extrabold">Join the SkillConnect Community</h2>
+        <p class="text-lg text-purple-100 max-w-2xl mx-auto font-light leading-relaxed">
+            Start your journey today and unlock endless opportunities for collaboration and growth.
+        </p>
+        {% if not user.is_authenticated %}
+        <div class="pt-2">
+            <a 
+                href="{% url 'signup' %}" 
+                class="inline-block bg-amber-400 text-gray-900 font-bold px-8 py-3 rounded-full shadow-lg hover:bg-amber-300 hover:shadow-xl hover:scale-105 transition-all duration-300"
+            >
+                Get Started
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
+{% comment %} {% extends "base.html" %}
+{% load static %}
+{% block content %}
 <div class="container py-5">
     <!-- Hero Section -->
     <div class="text-center py-5 rounded shadow" style="position: relative; overflow: hidden;">
@@ -198,4 +412,4 @@
         {% endif %}
     </div>
 </div>
-{% endblock %}
+{% endblock %} {% endcomment %}

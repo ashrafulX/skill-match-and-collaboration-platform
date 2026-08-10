@@ -1,77 +1,137 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container">
-  <div class="row d-flex justify-content-center">
-    <div class="col-md-9">
-      <h4>All Jobs</h4>
-      <p>Showing {{ data.count }} results</p>
+<div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
+  <!-- Header -->
+  <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-gray-100 pb-4">
+    <h4 class="text-2xl font-extrabold text-gray-900 tracking-tight">Your Job Posts</h4>
+    <p class="text-sm font-semibold text-gray-500 mt-1 sm:mt-0">
+      Showing <span class="text-blue-600 font-bold">{{ data.count }}</span> results
+    </p>
+  </div>
 
-      {% for job in data %}
-      <div class="job-card position-relative">
-        <!-- Three-dot menu -->
-        <div class="dropdown position-absolute top-0 end-0 m-2">
-          <button
-            class="btn btn-link "
-            type="button"
-            id="dropdownMenuButton{{ job.id }}"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-          <i class="fas fa-ellipsis-vertical"></i> <!-- Updated to a common FontAwesome class -->
+  <!-- Job Feed Loop -->
+  {% for job in data %}
+  <div class="relative bg-white rounded-3xl p-6 mb-4 border border-gray-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+    
+    <!-- Three-dot Menu Dropdown -->
+    {% if user.is_authenticated %}
+    <div class="absolute top-4 right-4 z-20">
+      <button
+        type="button"
+        onclick="togglePostDropdown('{{ job.id }}', event)"
+        class="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors focus:outline-none"
+        aria-expanded="false"
+      >
+        <i class="fas fa-ellipsis-vertical text-lg"></i>
+      </button>
+
+      <!-- Dropdown Menu -->
+      <div 
+        id="dropdown-menu-{{ job.id }}" 
+        class="hidden absolute right-0 mt-2 w-36 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 z-30 overflow-hidden transform origin-top-right transition-all"
+      >
+        <a href="{% url 'edit_job' job.id %}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors font-medium">
+          <i class="fas fa-edit w-4 mr-2 text-blue-500"></i> Edit
+        </a>
+        <form method="post" action="{% url 'delete_job' job.id %}" class="block">
+          {% csrf_token %}
+          <button type="submit" class="w-full flex items-center px-4 py-2 text-sm text-rose-600 hover:bg-rose-50 transition-colors font-medium text-left">
+            <i class="fas fa-trash-alt w-4 mr-2 text-rose-500"></i> Delete
           </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ job.id }}">
-            {% if user.is_authenticated %}
-              <li><a class="dropdown-item" href="{% url 'edit_job' job.id %}">Edit</a></li>
-              <li>
-                <form method="post" action="{% url 'delete_job' job.id %}" class="d-inline">
-                  {% csrf_token %}
-                  <button type="submit" class="dropdown-item text-danger">Delete</button>
-                </form>
-              </li>
-            {% endif %}
-          </ul>
+        </form>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+      <div class="flex items-start space-x-4">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <img src="https://via.placeholder.com/60" alt="Company Logo" class="w-14 h-14 rounded-full object-cover border-2 border-gray-50 shadow-sm">
         </div>
 
-        <div class="job-info d-flex">
-          <div class="job-logo">
-            <img src="https://via.placeholder.com/60" alt="Company Logo">
+        <!-- Details -->
+        <div class="space-y-2 max-w-lg">
+          <h5 class="text-xl font-bold text-gray-900 leading-tight pr-8">
+            <a href="{% url 'job_detail' job.id %}" class="hover:text-blue-600 transition-colors">
+              {{ job.title }}
+            </a>
+          </h5>
+          <p class="text-sm text-gray-500 font-medium">
+            Posted by <span class="text-gray-700 font-semibold">{{ job.author.username }}</span>
+          </p>
+          
+          <!-- Job Categories -->
+          <div class="flex flex-wrap items-center gap-1.5 text-xs">
+            <strong class="font-bold text-gray-700 mr-1">Categories:</strong>
+            {% for category in job.Categories.all %}
+              <span class="bg-gray-100 text-gray-700 font-semibold px-2.5 py-1 rounded-full border border-gray-200/60">
+                {{ category.name }}
+              </span>
+            {% empty %}
+              <span class="text-gray-400 italic">No categories assigned</span>
+            {% endfor %}
           </div>
-          <div class="job-details">
-            <h5 class="job-title">{{ job.title }}</h5>
-            <p class="job-meta">Posted by {{ job.author.username }}</p>
-            
-            <!-- Job Categories -->
-            <div class="categories tags">
-              <strong>Categories:</strong>
-              {% for category in job.Categories.all %}
-              <span class="badge ">{{ category.name }}</span>
-              {% empty %}
-              <span class="text-muted">No categories assigned</span>
-              {% endfor %}
-            </div>
-            
-            <!-- Job Types -->
-            <div class="tags">
-              <strong>Job Type:</strong>
-              {% for type in job.job_type %}
-              <span class="badge">{{ type }}</span>
-              {% empty %}
-              <span class="text-muted">No job types assigned</span>
-              {% endfor %}
-            </div>
+          
+          <!-- Job Types -->
+          <div class="flex flex-wrap items-center gap-1.5 text-xs">
+            <strong class="font-bold text-gray-700 mr-1">Job Type:</strong>
+            {% for type in job.job_type %}
+              <span class="bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-100 uppercase tracking-wider text-[10px]">
+                {{ type }}
+              </span>
+            {% empty %}
+              <span class="text-gray-400 italic">No job types assigned</span>
+            {% endfor %}
           </div>
         </div>
-        <a href="{% url 'job_detail' job.id %}" class="btn btn-primary mt-3">View Details</a>
       </div>
-      {% empty %}
-      <div class="alert alert-warning text-center mt-4">
-        No jobs found. Please check back later.
-      </div>
-      {% endfor %}
+    </div>
 
+    <!-- Action Button -->
+    <div class="mt-5 pt-4 border-t border-gray-100 flex justify-end">
+      <a href="{% url 'job_detail' job.id %}" class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-2.5 rounded-full shadow-md shadow-blue-500/20 transition-all duration-200 hover:-translate-y-0.5">
+        View Details <i class="fas fa-arrow-right ml-2 text-xs"></i>
+      </a>
     </div>
   </div>
+  {% empty %}
+  <!-- Empty State -->
+  <div class="bg-white rounded-3xl border border-gray-100 p-12 text-center shadow-sm">
+    <div class="w-16 h-16 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-4">
+      <i class="fas fa-folder-open text-2xl"></i>
+    </div>
+    <h5 class="text-lg font-bold text-gray-800 mb-1">No jobs found</h5>
+    <p class="text-gray-500 text-sm">You haven't posted any jobs yet. Check back later or create a new post.</p>
+  </div>
+  {% endfor %}
+
 </div>
+
+<!-- Lightweight Vanilla JS for Dropdown toggles -->
+<script>
+  function togglePostDropdown(jobId, event) {
+    event.stopPropagation();
+    // Close any other open dropdowns
+    document.querySelectorAll('[id^="dropdown-menu-"]').forEach(menu => {
+      if (menu.id !== `dropdown-menu-${jobId}`) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    const menu = document.getElementById(`dropdown-menu-${jobId}`);
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  }
+
+  // Close dropdowns on outside click
+  document.addEventListener('click', function() {
+    document.querySelectorAll('[id^="dropdown-menu-"]').forEach(menu => {
+      menu.classList.add('hidden');
+    });
+  });
+</script>
 
 {% endblock %}

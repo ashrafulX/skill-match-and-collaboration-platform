@@ -1,61 +1,95 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+
 {% block content %}
-
-<div class="container d-flex justify-content-center align-items-center vh-100">
-  <form 
-    method="post" 
-    class="p-5 rounded shadow-lg bg-white border border-primary position-relative"
-    style="width: 40%;"
-    novalidate
-  >
-    {% csrf_token %}
+<div class="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6">
+  <div class="w-full max-w-md bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden relative">
     
-    <!-- Decorative Header -->
-    <div class="text-center mb-4">
-      <h2 class="text-primary">Reset Password</h2>
-      <p class="text-muted">Please fill out the fields below to proceed</p>
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-white text-center shadow-sm">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Reset Password</h2>
+      <p class="text-blue-100 text-sm mt-1">Please fill out the fields below to proceed</p>
     </div>
 
-    <!-- Non-field errors -->
-    {% if form.non_field_errors %}
-      {% for er in form.non_field_errors %}
-        <div class="alert alert-danger text-center" role="alert">
-          {{ er }}
+    <!-- Form Content -->
+    <div class="p-6 sm:p-8 pb-16">
+      <form method="post" class="space-y-5" novalidate>
+        {% csrf_token %}
+
+        <!-- Non-field Errors -->
+        {% if form.non_field_errors %}
+          <div class="space-y-2">
+            {% for er in form.non_field_errors %}
+              <div class="bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 rounded-2xl text-xs sm:text-sm font-medium text-center">
+                {{ er }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <!-- Form Fields -->
+        {% for fm in form %}
+          <div class="space-y-2">
+            <label for="{{ fm.id_for_label }}" class="block text-sm font-bold text-gray-700">
+              {{ fm.label }}
+              {% if fm.field.required %}<span class="text-blue-600">*</span>{% endif %}
+            </label>
+            
+            <div class="relative">
+              {{ fm }}
+            </div>
+
+            {% if fm.errors %}
+              <p class="text-xs text-rose-600 font-semibold mt-1">{{ fm.errors|striptags }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <!-- Submit Button -->
+        <div class="pt-3">
+          <button type="submit" 
+                  class="w-full inline-flex justify-center items-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-base px-6 py-3 rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
+            <i class="fas fa-paper-plane mr-2"></i> Submit
+          </button>
         </div>
-      {% endfor %}
-    {% endif %}
 
-    <!-- Form fields -->
-    {% for fm in form %}
-    <div class="form-control mb-3">
-      {{ fm }}
-      {{ fm.label_tag }}
-      {% if fm.errors %}
-        <small class="text-danger d-block mt-2">{{ fm.errors|striptags }}</small>
-      {% endif %}
-    </div>
-    {% endfor %}
-
-    <!-- Submit Button -->
-    <div class="d-grid">
-      <button class="btn btn-primary btn-lg btn-block" type="submit">
-        <i class="fas fa-paper-plane"></i> Submit
-      </button>
-    </div>
-
-    <!-- Forgot Password Link -->
-    <div class="text-center mt-4">
-      <a href="{% url 'changePass2' %}" class="text-decoration-none text-primary">
-        <i class="fas fa-question-circle"></i> Forgot your old password?
-      </a>
+        <!-- Forgot Password Link -->
+        <div class="text-center pt-2">
+          <a href="{% url 'changePass2' %}" class="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors">
+            <i class="fas fa-question-circle mr-1.5"></i> Forgot your old password?
+          </a>
+        </div>
+      </form>
     </div>
 
     <!-- Decorative Footer -->
-    <div class="position-absolute w-100 bottom-0 text-center bg-light py-2">
-      <small class="text-muted">Need help? <a href="#" class="text-primary">Contact Support</a></small>
+    <div class="absolute bottom-0 left-0 right-0 text-center bg-gray-50/80 border-t border-gray-100 py-2.5">
+      <small class="text-gray-500 text-xs">Need help? <a href="#" class="font-bold text-blue-600 hover:underline">Contact Support</a></small>
     </div>
-  </form>
+
+  </div>
 </div>
 
+<!-- Styling for standard Django form widgets -->
+<style>
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+    font-size: 0.95rem;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+  }
+
+  input[type="text"]:focus,
+  input[type="password"]:focus,
+  input[type="email"]:focus {
+    border-color: #2563eb;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+  }
+</style>
 {% endblock %}

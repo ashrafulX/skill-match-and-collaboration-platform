@@ -1,45 +1,83 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+
 {% block content %}
+<div class="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6">
+  <div class="w-full max-w-md bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden relative">
+    
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-white text-center shadow-sm">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Reset Password</h2>
+      <p class="text-blue-100 text-sm mt-1">Please fill out the fields below to proceed</p>
+    </div>
 
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <form method="post" class="p-5 rounded shadow-lg bg-white border border-primary position-relative" style="width: 40%;" novalidate>
+    <!-- Form Content -->
+    <div class="p-6 sm:p-8">
+      <form method="post" class="space-y-6" novalidate>
         {% csrf_token %}
-        
-        <!-- Decorative Header -->
-        <div class="text-center mb-4">
-            <h2 class="text-primary">Reset Password</h2>
-            <p class="text-muted">Please fill out the fields below to proceed</p>
-        </div>
 
-        <!-- Non-field errors -->
+        <!-- Non-field Errors -->
         {% if form.non_field_errors %}
+          <div class="space-y-2">
             {% for er in form.non_field_errors %}
-                <div class="alert alert-danger text-center" role="alert">
-                    {{ er }}
-                </div>
+              <div class="bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 rounded-2xl text-xs sm:text-sm font-medium text-center">
+                {{ er }}
+              </div>
             {% endfor %}
+          </div>
         {% endif %}
 
-        <!-- Form fields with Floating Labels -->
+        <!-- Form Fields with Floating Labels -->
         {% for fm in form %}
-            <div class="form-control mb-4">
-                {{ fm }} <!-- The form field itself -->
-                {{ fm.label_tag }} <!-- The label that floats above the field -->
-                {% if fm.errors %}
-                    <small class="text-danger d-block mt-2">{{ fm.errors|striptags }}</small>
-                {% endif %}
-            </div>
+          <div class="relative z-0">
+            {{ fm }}
+            <label 
+              for="{{ fm.id_for_label }}" 
+              class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:top-3.5 peer-focus:top-4 peer-focus:-translate-y-4 peer-focus:scale-75 left-3 rounded-md pointer-events-none"
+            >
+              {{ fm.label }}
+            </label>
+
+            {% if fm.errors %}
+              <p class="text-xs text-rose-600 font-semibold mt-1.5 ml-1">{{ fm.errors|striptags }}</p>
+            {% endif %}
+          </div>
         {% endfor %}
 
         <!-- Submit Button -->
-        <div class="d-grid">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">
-                Submit
-            </button>
+        <div class="pt-2">
+          <button type="submit" 
+                  class="w-full inline-flex justify-center items-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-base px-6 py-3.5 rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
+            Submit
+          </button>
         </div>
+      </form>
+    </div>
 
-    </form>
+  </div>
 </div>
 
+<!-- Input styling to support pure CSS floating labels -->
+<style>
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
+    display: block;
+    width: 100%;
+    padding: 1rem 0.85rem;
+    font-size: 0.95rem;
+    color: #111827;
+    background-color: transparent;
+    border: 1px solid #d1d5db;
+    border-radius: 1rem;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+  }
+
+  input[type="text"]:focus,
+  input[type="password"]:focus,
+  input[type="email"]:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  }
+</style>
 {% endblock %}

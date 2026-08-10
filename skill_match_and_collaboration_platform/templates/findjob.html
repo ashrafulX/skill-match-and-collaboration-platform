@@ -1,4 +1,23 @@
 {% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+        <!-- Filters Sidebar -->
+        <div class="lg:col-span-1 sticky top-24">
+            {% include 'filters.html' %}
+        </div>
+
+        <!-- Job Listings -->
+        <div class="lg:col-span-3">
+            <div id="filteredJobs" class="space-y-4">
+                {% include 'ajax/job-list.html' with data=data %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% comment %} {% extends 'base.html' %}
 {% block content %}
 <div class="container">
     <div class="row">
@@ -15,4 +34,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock %} {% endcomment %}

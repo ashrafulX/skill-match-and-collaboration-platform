@@ -1,53 +1,89 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container py-5">
-    <h2 class="mb-4">{{ job.title }}</h2>
+<div class="max-w-4xl mx-auto py-10 px-4 sm:px-6">
+    <!-- Header -->
+    <div class="mb-6 flex flex-col md:flex-row md:items-center md:justify-between">
+        <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2 md:mb-0">
+            {{ job.title }}
+        </h2>
+        <span class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-100 self-start md:self-auto">
+            {{ job.job_type|join:", " }}
+        </span>
+    </div>
 
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <p><strong>Posted By:</strong> {{ job.author.username }}</p>
-            <p><strong>Posted On:</strong> {{ job.posted_on|date:"F j, Y" }}</p>
-            <p><strong>Job Type:</strong> {{ job.job_type|join:", " }}</p>
-            <p><strong>Required Technical Skills:</strong> 
+    <!-- Job Details Card -->
+    <div class="bg-white rounded-3xl shadow-lg border border-gray-100 p-6 sm:p-8 space-y-6">
+        <!-- Meta Information -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-6 border-b border-gray-100 text-sm text-gray-600">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-user text-blue-500 w-5"></i>
+                <span><strong class="font-bold text-gray-900">Posted By:</strong> {{ job.author.username }}</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <i class="far fa-calendar-alt text-blue-500 w-5"></i>
+                <span><strong class="font-bold text-gray-900">Posted On:</strong> {{ job.posted_on|date:"F j, Y" }}</span>
+            </div>
+        </div>
+
+        <!-- Technical Skills Badges -->
+        <div>
+            <strong class="font-bold text-gray-900 block mb-2.5">Required Technical Skills:</strong>
+            <div class="flex flex-wrap gap-2">
                 {% for category in job.Required_Technical_Skills.all %}
-                    <span class="badge bg-primary">{{ category.name }}</span>
+                    <span class="inline-flex items-center bg-blue-50 text-blue-700 font-semibold px-3 py-1 rounded-full text-xs border border-blue-100 shadow-sm">
+                        <i class="fas fa-code mr-1.5 text-[10px]"></i>{{ category.name }}
+                    </span>
                 {% empty %}
-                    <span>No categories specified.</span>
+                    <span class="text-gray-400 text-sm italic">No categories specified.</span>
                 {% endfor %}
-            </p>
-            <p><strong>Description:</strong></p>
-            <p>{{ job.description }}</p>
-            
-            <!-- <p><strong>Status:</strong> 
-                <span class="badge {% if job.status == 'Find' %}bg-success{% else %}bg-warning{% endif %}">
-                    {{ job.status }}
-                </span>
-            </p> -->
+            </div>
+        </div>
+
+        <!-- Job Description -->
+        <div class="pt-2">
+            <strong class="font-bold text-gray-900 block mb-2 text-lg">Description</strong>
+            <div class="bg-gray-50/70 p-5 rounded-2xl text-gray-700 leading-relaxed whitespace-pre-line text-sm sm:text-base border border-gray-100">
+                {{ job.description }}
+            </div>
         </div>
     </div>
 
+    <!-- Action Section -->
     {% if user.is_authenticated %}
-    {% if job.author.username != user.username %}
-         {% if job.status == 'Not-Find' %}
-        <div class="mt-4">
-            <a href="{% url 'apply_job' job.id %}" class="btn btn-primary">Apply for Job</a>
-        </div>
-        {% else %}
-        <div class="mt-4">
-          <a href="{% url 'apply_job' job.id %}" class="btn btn-danger disabled">Application closed</a>
-      </div>
-      {% endif %}
-      {% endif %}
+        {% if job.author.username != user.username %}
+            {% if job.status == 'Not-Find' %}
+                <div class="mt-6">
+                    <a href="{% url 'apply_job' job.id %}" 
+                       class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-base px-8 py-3 rounded-full shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 hover:-translate-y-0.5">
+                        <i class="fas fa-paper-plane mr-2.5"></i> Apply for Job
+                    </a>
+                </div>
+            {% else %}
+                <div class="mt-6">
+                    <button disabled 
+                            class="inline-flex items-center justify-center bg-red-100 text-red-600 font-bold text-base px-8 py-3 rounded-full border border-red-200 cursor-not-allowed opacity-80">
+                        <i class="fas fa-lock mr-2.5"></i> Application closed
+                    </button>
+                </div>
+            {% endif %}
+        {% endif %}
     {% else %}
-        <div class="alert alert-warning mt-4">
-            <p>You must be logged in to apply for this job. <a href="{% url 'loginpage' %}" class="alert-link">Login here</a>.</p>
+        <div class="mt-6 bg-amber-50 border border-amber-200 text-amber-800 px-5 py-4 rounded-2xl flex items-center shadow-sm">
+            <i class="fas fa-exclamation-circle text-amber-500 text-xl mr-3 flex-shrink-0"></i>
+            <p class="text-sm">
+                You must be logged in to apply for this job. 
+                <a href="{% url 'loginpage' %}" class="font-bold text-amber-900 underline hover:text-amber-950 ml-1">Login here</a>.
+            </p>
         </div>
-    
     {% endif %}
 
-    <div class="mt-4">
-        <a href="{% url 'homepage' %}" class="btn btn-secondary">Back to Homepage</a>
+    <!-- Back Button -->
+    <div class="mt-6">
+        <a href="{% url 'homepage' %}" 
+           class="inline-flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold px-6 py-2.5 rounded-full transition-all duration-200 text-sm">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Homepage
+        </a>
     </div>
 </div>
 {% endblock %}

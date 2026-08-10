@@ -1,50 +1,100 @@
 {% extends 'base.html' %}
-{%  load crispy_forms_tags %}
+
 {% block content %}
+<div class="max-w-3xl mx-auto my-12 px-4 sm:px-6">
+    <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+        
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 sm:p-8 text-white text-center shadow-sm">
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight flex items-center justify-center">
+                <i class="fas fa-plus-circle mr-3 text-blue-200"></i> Post a New Job
+            </h1>
+        </div>
 
+        <!-- Form Body -->
+        <div class="p-6 sm:p-10">
+            <form method="post" class="space-y-6" novalidate>
+                {% csrf_token %}
+
+                <!-- Form Loop -->
+                <div class="space-y-5">
+                    {% if form.non_field_errors %}
+                        <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-2xl text-sm">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    {% for field in form %}
+                        <div class="space-y-2">
+                            <label for="{{ field.id_for_label }}" class="block text-sm font-bold text-gray-700">
+                                {{ field.label }}
+                                {% if field.field.required %}<span class="text-blue-600">*</span>{% endif %}
+                            </label>
+                            
+                            <div class="relative">
+                                {{ field }}
+                            </div>
+
+                            {% if field.help_text %}
+                                <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+                            {% endif %}
+
+                            {% for error in field.errors %}
+                                <p class="text-xs text-red-600 font-semibold mt-1">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-4">
+                    <button type="submit" 
+                            class="w-full inline-flex justify-center items-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-lg px-8 py-3.5 rounded-2xl shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
+                        <i class="fas fa-paper-plane mr-2"></i> Submit Job Post
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Styling for standard Django form widgets -->
 <style>
-    .jonForm {
-        width: 50%;
-        margin: 2rem auto;
-        padding: 2rem;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        background-color: #f9f9f9;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    form h1 {
-        text-align: center;
-        color: #333;
-        font-family: 'Arial', sans-serif;
-        margin-bottom: 1.5rem;
-    }
-
-    .jobbtn {
-        display: block;
+    input[type="text"],
+    input[type="email"],
+    input[type="url"],
+    input[type="number"],
+    textarea,
+    select {
         width: 100%;
-        padding: 0.75rem;
-        background-color: #ff9800;
-        color: #fff;
-        font-size: 1rem;
-        font-weight: bold;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+        padding: 0.75rem 1rem;
+        border-radius: 1rem;
+        border: 1px solid #e5e7eb;
+        background-color: #f9fafb;
+        font-size: 0.95rem;
+        transition: all 0.2s ease-in-out;
+        outline: none;
     }
 
-    button:hover {
-        background-color: #e68a00;
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="url"]:focus,
+    input[type="number"]:focus,
+    textarea:focus,
+    select:focus {
+        border-color: #2563eb;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+    }
+
+    /* Checkbox & Radio styling */
+    input[type="checkbox"],
+    input[type="radio"] {
+        width: 1.15rem;
+        height: 1.15rem;
+        accent-color: #2563eb;
+        border-radius: 0.375rem;
+        cursor: pointer;
     }
 </style>
-
-<form method="post" class="jonForm" >
-    <h1>Add Job</h1>
-    {% csrf_token %}
-    {{form | crispy}}
-
-    <button class="btn btn-warning jobbtn">Submit</button>
-</form>
-
 {% endblock %}

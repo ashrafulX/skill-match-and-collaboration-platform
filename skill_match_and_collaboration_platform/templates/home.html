@@ -1,158 +1,153 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<section class="hero-section">
-  <div class="container text-center">
-      <h1 class="display-3 fw-bold">Discover, Connect, Collaborate</h1>
-      <p class="lead mt-3">Empowering your journey to find the perfect match for your skills and ideas.</p>
-      <a href="{% url 'find_job' %}" class="btn btn-primary btn-lg mt-4 shadow btn-glow">Get Started <i class="fas fa-arrow-right"></i></a>
+
+<!-- Hero Section (Full Screen Viewport) -->
+<section 
+  class="relative h-[100vh] w-full flex flex-col justify-center items-center text-center px-4 bg-cover bg-center overflow-hidden" 
+  style="background-image: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), url('{% static 'bg-img.jpg' %}'); animation: fadeIn 1.5s ease-in-out;"
+>
+  <div class="max-w-5xl mx-auto z-10 animate-fade-in-up">
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white mb-6 tracking-tight drop-shadow-2xl">
+        Discover, Connect, <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Collaborate</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-300 mb-10 font-light max-w-3xl mx-auto leading-relaxed">
+        Empowering your journey to find the perfect match for your skills and transform brilliant ideas into reality.
+      </p>
+      <a href="{% url 'find_job' %}" 
+         class="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xl font-bold px-10 py-5 rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.6)] hover:shadow-[0_0_40px_rgba(37,99,235,0.8)] hover:-translate-y-1 transform">
+        Get Started <i class="fas fa-arrow-right ml-3"></i>
+      </a>
   </div>
+  
+  <style>
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  </style>
 </section>
 
 <!-- Features Section -->
-<section id="features" class="py-5">
-  <div class="container">
-      <div class="text-center mb-5">
-          <h2 class="fw-bold">Why Choose TalentDock?</h2>
-          <p class="text-muted">Our platform offers unique features to help you connect and collaborate.</p>
+<section id="features" class="py-24 bg-white w-full">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+          <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">Why Choose TalentDock?</h2>
+          <p class="text-lg text-gray-500 max-w-2xl mx-auto font-medium">Our platform offers unique, cutting-edge features to help you connect and collaborate effectively.</p>
       </div>
-      <div class="row g-4">
-          <div class="col-md-4">
-              <div class="card feature-card">
-                  <div class="card-body text-center">
-                      <i class="fas fa-user-check fa-3x text-primary mb-3"></i>
-                      <h5 class="card-title mt-3">Skill Matching</h5>
-                      <p class="card-text">Find collaborators with complementary skills in just a few clicks.</p>
-                  </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <!-- Card 1 -->
+          <div class="bg-gray-50 rounded-[2rem] p-10 text-center border border-gray-100 shadow-lg hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 group cursor-pointer">
+              <div class="mx-auto w-24 h-24 rounded-3xl bg-blue-100 text-blue-600 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                <i class="fas fa-user-check text-4xl"></i>
               </div>
+              <h5 class="text-2xl font-bold text-gray-900 mb-4">Skill Matching</h5>
+              <p class="text-gray-500 font-medium leading-relaxed">Find collaborators with complementary skills effortlessly in just a few clicks.</p>
           </div>
-          <div class="col-md-4">
-              <div class="card feature-card">
-                  <div class="card-body text-center">
-                      <i class="fas fa-comments fa-3x text-primary mb-3"></i>
-                      <h5 class="card-title mt-3">Seamless Communication</h5>
-                      <p class="card-text">Collaborate efficiently with our built-in messaging tools.</p>
-                  </div>
+          
+          <!-- Card 2 -->
+          <div class="bg-gray-50 rounded-[2rem] p-10 text-center border border-gray-100 shadow-lg hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 group cursor-pointer">
+              <div class="mx-auto w-24 h-24 rounded-3xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:-rotate-3 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                <i class="fas fa-comments text-4xl"></i>
               </div>
+              <h5 class="text-2xl font-bold text-gray-900 mb-4">Seamless Communication</h5>
+              <p class="text-gray-500 font-medium leading-relaxed">Collaborate efficiently in real-time with our built-in lightning-fast messaging tools.</p>
           </div>
-          <div class="col-md-4">
-              <div class="card feature-card">
-                  <div class="card-body text-center">
-                      <i class="fas fa-lightbulb fa-3x text-primary mb-3"></i>
-                      <h5 class="card-title mt-3">Innovative Ideas</h5>
-                      <p class="card-text">Work with creative minds to turn your ideas into reality.</p>
-                  </div>
+          
+          <!-- Card 3 -->
+          <div class="bg-gray-50 rounded-[2rem] p-10 text-center border border-gray-100 shadow-lg hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 group cursor-pointer">
+              <div class="mx-auto w-24 h-24 rounded-3xl bg-purple-100 text-purple-600 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                <i class="fas fa-lightbulb text-4xl"></i>
               </div>
+              <h5 class="text-2xl font-bold text-gray-900 mb-4">Innovative Ideas</h5>
+              <p class="text-gray-500 font-medium leading-relaxed">Work alongside creative minds globally to turn your vision and ideas into reality.</p>
           </div>
       </div>
   </div>
 </section>
 
 <!-- How It Works Section -->
-<section id="how-it-works" class="bg-light py-5">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold display-4 text-primary">How It Works</h2>
-            <p class="text-muted fs-5">A simple process to turn ideas into reality</p>
+<section id="how-it-works" class="py-24 bg-slate-50 w-full border-y border-gray-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-20">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-4 tracking-tight">How It Works</h2>
+            <p class="text-lg text-gray-500 max-w-2xl mx-auto font-medium">A simple, intuitive 4-step process to launch your next big project.</p>
         </div>
-        <div class="row g-5">
-            <div class="col-md-3 text-center">
-                <div class="step-box shadow-lg p-4 rounded-3 bg-white">
-                    <div class="icon-container mb-3">
-                        <i class="fas fa-user-plus fa-3x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold">1. Sign Up</h5>
-                    <p class="text-muted">Create your profile and showcase your skills.</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Step 1 -->
+            <div class="bg-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 border border-gray-100 group relative">
+                <div class="absolute -top-6 -right-6 text-9xl font-black text-gray-50 opacity-50 z-0">1</div>
+                <div class="relative z-10">
+                  <div class="mx-auto w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white text-blue-600 transition-colors duration-300 shadow-inner">
+                      <i class="fas fa-user-plus text-2xl"></i>
+                  </div>
+                  <h5 class="text-xl font-bold text-gray-900 mb-3">Sign Up</h5>
+                  <p class="text-gray-500 text-sm font-medium">Create your professional profile and brilliantly showcase your skills.</p>
                 </div>
             </div>
-            <div class="col-md-3 text-center">
-                <div class="step-box shadow-lg p-4 rounded-3 bg-white">
-                    <div class="icon-container mb-3">
-                        <i class="fas fa-search fa-3x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold">2. Explore</h5>
-                    <p class="text-muted">Discover projects and collaborators that match your expertise.</p>
+            
+            <!-- Step 2 -->
+            <div class="bg-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 border border-gray-100 group relative">
+                <div class="absolute -top-6 -right-6 text-9xl font-black text-gray-50 opacity-50 z-0">2</div>
+                <div class="relative z-10">
+                  <div class="mx-auto w-20 h-20 rounded-full bg-indigo-50 flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 transition-colors duration-300 shadow-inner">
+                      <i class="fas fa-search text-2xl"></i>
+                  </div>
+                  <h5 class="text-xl font-bold text-gray-900 mb-3">Explore</h5>
+                  <p class="text-gray-500 text-sm font-medium">Discover amazing projects and collaborators matching your expertise.</p>
                 </div>
             </div>
-            <div class="col-md-3 text-center">
-                <div class="step-box shadow-lg p-4 rounded-3 bg-white">
-                    <div class="icon-container mb-3">
-                        <i class="fas fa-handshake fa-3x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold">3. Connect</h5>
-                    <p class="text-muted">Engage and communicate seamlessly with your matches.</p>
+            
+            <!-- Step 3 -->
+            <div class="bg-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 border border-gray-100 group relative">
+                <div class="absolute -top-6 -right-6 text-9xl font-black text-gray-50 opacity-50 z-0">3</div>
+                <div class="relative z-10">
+                  <div class="mx-auto w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white text-emerald-600 transition-colors duration-300 shadow-inner">
+                      <i class="fas fa-handshake text-2xl"></i>
+                  </div>
+                  <h5 class="text-xl font-bold text-gray-900 mb-3">Connect</h5>
+                  <p class="text-gray-500 text-sm font-medium">Engage and communicate seamlessly with your perfect matches.</p>
                 </div>
             </div>
-            <div class="col-md-3 text-center">
-                <div class="step-box shadow-lg p-4 rounded-3 bg-white">
-                    <div class="icon-container mb-3">
-                        <i class="fas fa-rocket fa-3x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold">4. Collaborate</h5>
-                    <p class="text-muted">Work together to bring ideas to life and achieve success.</p>
+            
+            <!-- Step 4 -->
+            <div class="bg-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 border border-gray-100 group relative">
+                <div class="absolute -top-6 -right-6 text-9xl font-black text-gray-50 opacity-50 z-0">4</div>
+                <div class="relative z-10">
+                  <div class="mx-auto w-20 h-20 rounded-full bg-orange-50 flex items-center justify-center mb-6 group-hover:bg-orange-500 group-hover:text-white text-orange-500 transition-colors duration-300 shadow-inner">
+                      <i class="fas fa-rocket text-2xl"></i>
+                  </div>
+                  <h5 class="text-xl font-bold text-gray-900 mb-3">Collaborate</h5>
+                  <p class="text-gray-500 text-sm font-medium">Work together to bring ideas to life and achieve massive success.</p>
                 </div>
             </div>
         </div>
     </div>
-  
-    <style>
-      #how-it-works {
-          background: linear-gradient(135deg, #f9f9f9, #ffffff);
-      }
-      .step-box {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .step-box:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      }
-      .icon-container {
-          display: inline-flex;
-          justify-content: center;
-          align-items: center;
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-          background-color: #e3f2fd;
-      }
-    </style>
-  </section>  
+</section>  
 
 <!-- Trending Skills Section -->
-<section id="trending-skills" class="py-5">
-  <div class="container">
-      <div class="text-center mb-5">
-          <h2 class="fw-bold">Trending Skills</h2>
-          <p class="text-muted">Popular skills in demand right now.</p>
+<section id="trending-skills" class="py-24 bg-white w-full">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+          <h2 class="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">Trending Skills</h2>
+          <p class="text-lg text-gray-500 font-medium">Popular, high-demand skills employers are looking for right now.</p>
       </div>
-      <div class="row g-4">
-          <div class="col-md-3">
-              <div class="card skill-card text-center">
-                  <div class="card-body">
-                      <h5 class="card-title">Web Development</h5>
-                  </div>
-              </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="group bg-white p-8 rounded-3xl shadow-md border border-gray-100 text-center hover:shadow-xl hover:-translate-y-2 hover:border-blue-200 hover:bg-blue-50 transition-all duration-300 cursor-pointer">
+              <i class="fas fa-laptop-code text-3xl text-gray-400 group-hover:text-blue-500 mb-4 transition-colors"></i>
+              <h5 class="text-lg font-extrabold text-gray-800 group-hover:text-blue-700 transition-colors">Web Development</h5>
           </div>
-          <div class="col-md-3">
-              <div class="card skill-card text-center">
-                  <div class="card-body">
-                      <h5 class="card-title">Graphic Design</h5>
-                  </div>
-              </div>
+          <div class="group bg-white p-8 rounded-3xl shadow-md border border-gray-100 text-center hover:shadow-xl hover:-translate-y-2 hover:border-pink-200 hover:bg-pink-50 transition-all duration-300 cursor-pointer">
+              <i class="fas fa-palette text-3xl text-gray-400 group-hover:text-pink-500 mb-4 transition-colors"></i>
+              <h5 class="text-lg font-extrabold text-gray-800 group-hover:text-pink-700 transition-colors">Graphic Design</h5>
           </div>
-          <div class="col-md-3">
-              <div class="card skill-card text-center">
-                  <div class="card-body">
-                      <h5 class="card-title">Data Analysis</h5>
-                  </div>
-              </div>
+          <div class="group bg-white p-8 rounded-3xl shadow-md border border-gray-100 text-center hover:shadow-xl hover:-translate-y-2 hover:border-emerald-200 hover:bg-emerald-50 transition-all duration-300 cursor-pointer">
+              <i class="fas fa-chart-pie text-3xl text-gray-400 group-hover:text-emerald-500 mb-4 transition-colors"></i>
+              <h5 class="text-lg font-extrabold text-gray-800 group-hover:text-emerald-700 transition-colors">Data Analysis</h5>
           </div>
-          <div class="col-md-3">
-              <div class="card skill-card text-center">
-                  <div class="card-body">
-                      <h5 class="card-title">Digital Marketing</h5>
-                  </div>
-              </div>
+          <div class="group bg-white p-8 rounded-3xl shadow-md border border-gray-100 text-center hover:shadow-xl hover:-translate-y-2 hover:border-purple-200 hover:bg-purple-50 transition-all duration-300 cursor-pointer">
+              <i class="fas fa-bullhorn text-3xl text-gray-400 group-hover:text-purple-500 mb-4 transition-colors"></i>
+              <h5 class="text-lg font-extrabold text-gray-800 group-hover:text-purple-700 transition-colors">Digital Marketing</h5>
           </div>
       </div>
   </div>
@@ -160,57 +155,21 @@
 
 {% if not user.is_authenticated %}
 <!-- Call to Action Section -->
-<section id="call-to-action" class="py-5 text-white" style="background: #007bff;">
-  <div class="container text-center">
-      <h2 class="fw-bold">Join the TalentDock Community Today!</h2>
-      <p class="lead">Find the right people, build amazing projects, and grow your network.</p>
-      <a href="#" class="btn btn-light btn-lg mt-3 shadow">Sign Up Now</a>
+<section id="call-to-action" class="py-24 bg-gradient-to-r from-blue-700 to-indigo-800 text-white relative overflow-hidden w-full">
+  <!-- Decorative background elements -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20 pointer-events-none">
+      <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-white blur-3xl"></div>
+      <div class="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-blue-300 blur-3xl"></div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+      <h2 class="text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-md tracking-tight">Join the TalentDock Community Today!</h2>
+      <p class="text-xl text-blue-100 mb-10 font-medium">Find the right people, build amazing projects, and aggressively grow your network.</p>
+      <a href="{% url 'signup' %}" class="inline-block bg-white text-blue-700 font-extrabold text-lg px-10 py-4 rounded-full shadow-2xl hover:bg-gray-50 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] hover:-translate-y-1 transition-all duration-300">
+          Sign Up Now
+      </a>
   </div>
 </section>
 {% endif %}
-<style>
-  @keyframes fadeIn {
-      from {
-          opacity: 0;
-      }
-      to {
-          opacity: 1;
-      }
-  }
 
-  .hero-section {
-      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static 'bg-img.jpg' %}') no-repeat center center/cover;
-      color: white;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
-      animation: fadeIn 1.5s ease-in-out;
-  }
-
-  .feature-card, .skill-card {
-      transition: transform 0.3s, box-shadow 0.3s;
-      border: none;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      border-radius: 15px;
-      overflow: hidden;
-      background: linear-gradient(to bottom, #f8f9fa, #ffffff);
-  }
-
-  .feature-card:hover, .skill-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
-  }
-
-  .btn-glow {
-      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-  }
-
-  .btn-glow:hover {
-      box-shadow: 0 0 20px rgba(0, 123, 255, 0.7);
-  }
-</style>
 {% endblock %}

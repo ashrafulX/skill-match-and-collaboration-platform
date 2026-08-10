@@ -1,4 +1,95 @@
+
 {% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
+    <h2 class="text-3xl font-extrabold text-gray-900 mb-6 tracking-tight">Application Details</h2>
+    
+    <!-- Application Details Card -->
+    <div class="bg-white rounded-3xl shadow-lg border border-gray-100 p-6 sm:p-8 space-y-4 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+            <p class="text-base">
+                <strong class="font-bold text-gray-900">Full Name:</strong> 
+                <span class="ml-1">{{ application.full_name }}</span>
+            </p>
+            
+            <p class="text-base">
+                <strong class="font-bold text-gray-900">Email:</strong> 
+                <a href="mailto:{{ application.email }}" class="ml-1 text-blue-600 hover:underline font-medium">{{ application.email }}</a>
+            </p>
+            
+            <p class="text-base">
+                <strong class="font-bold text-gray-900">Phone:</strong> 
+                <a href="tel:{{ application.phone }}" class="ml-1 text-blue-600 hover:underline font-medium">{{ application.phone }}</a>
+            </p>
+            
+            <p class="text-base truncate">
+                <strong class="font-bold text-gray-900">LinkedIn URL:</strong> 
+                <a href="{{ application.LinkedIn_URL }}" target="_blank" class="ml-1 text-blue-600 hover:underline font-medium truncate inline-block max-w-full align-bottom">
+                    {{ application.LinkedIn_URL }}
+                </a>
+            </p>
+        </div>
+
+        <div class="border-t border-gray-100 pt-4">
+            <p class="text-base text-gray-700">
+                <strong class="font-bold text-gray-900 block mb-1">Additional Information:</strong> 
+                <span class="bg-gray-50 p-4 rounded-2xl block text-gray-600 leading-relaxed">{{ application.Additional_information }}</span>
+            </p>
+        </div>
+
+        <div class="border-t border-gray-100 pt-4 flex items-center">
+            <strong class="font-bold text-gray-900 mr-2">Application Status:</strong> 
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold
+                {% if application.status == 'Pending' %}
+                    bg-amber-100 text-amber-800 border border-amber-200
+                {% elif application.status == 'Accepted' %}
+                    bg-emerald-100 text-emerald-800 border border-emerald-200
+                {% else %}
+                    bg-rose-100 text-rose-800 border border-rose-200
+                {% endif %}">
+                {{ application.status }}
+            </span>
+        </div>
+    </div>
+
+    <!-- Management Controls -->
+    {% if application.JobPost.author == user %}
+        <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8 mb-8">
+            <h4 class="text-xl font-bold text-gray-900 mb-4">Manage Application</h4>
+            
+            {% if application.JobPost.status == 'Not-Find' %}
+                {% if application.status == 'Pending' %}
+                    <div class="flex flex-wrap gap-3">
+                        <a href="{% url 'manage_application' application.id 'accept' %}" 
+                           class="inline-flex items-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-full shadow-lg shadow-emerald-600/20 hover:shadow-emerald-600/40 transition-all duration-200 hover:-translate-y-0.5">
+                            <i class="fas fa-check mr-2"></i> Accept
+                        </a>
+                        <a href="{% url 'manage_application' application.id 'reject' %}" 
+                           class="inline-flex items-center bg-rose-600 hover:bg-rose-700 text-white font-bold px-6 py-2.5 rounded-full shadow-lg shadow-rose-600/20 hover:shadow-rose-600/40 transition-all duration-200 hover:-translate-y-0.5">
+                            <i class="fas fa-times mr-2"></i> Reject
+                        </a>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="bg-blue-50 border border-blue-200 text-blue-800 px-5 py-4 rounded-2xl flex items-center">
+                    <i class="fas fa-info-circle text-blue-500 mr-3 text-lg"></i>
+                    <span>Status is already <strong class="font-bold">Approved</strong>.</span>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <!-- Back Button -->
+    <div>
+        <a href="{% url 'job_detail' application.JobPost.id %}" 
+           class="inline-flex items-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold px-6 py-2.5 rounded-full transition-all duration-200">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Job Post
+        </a>
+    </div>
+</div>
+{% endblock %}
+{% comment %} {% extends 'base.html' %}
 
 {% block content %}
 <div class="container py-5">
@@ -40,4 +131,4 @@
         <a href="{% url 'job_detail' application.JobPost.id %}" class="btn btn-secondary">Back to Job Post</a>
     </div>
 </div>
-{% endblock %}
+{% endblock %} {% endcomment %}

@@ -1,4 +1,62 @@
-<h4>All Jobs</h4>
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-gray-100 pb-4">
+  <h4 class="text-2xl font-extrabold text-gray-900 tracking-tight">All Jobs</h4>
+  <p class="text-sm font-semibold text-gray-500 mt-1 sm:mt-0">
+    Showing <span class="text-blue-600 font-bold">{{ data.count }}</span> results
+  </p>
+</div>
+
+{% if data %}
+  <div class="space-y-4">
+    {% for job in data %}
+    <div class="job-card">
+      <div class="job-info">
+        <div class="job-logo">
+          <img src="https://via.placeholder.com/60" alt="Company Logo">
+        </div>
+        <div class="job-details">
+          <h5 class="job-title hover:text-blue-600 transition-colors cursor-pointer">
+            <a href="{% url 'job_detail' job.id %}">{{ job.title }}</a>
+          </h5>
+          <p class="job-meta">
+            Posted by <span class="font-semibold text-gray-700">{{ job.author.get_full_name|default:job.author.username }}</span>
+          </p>
+
+          <div class="tags">
+            <span class="text-xs font-bold text-gray-400 self-center uppercase tracking-wider mr-1">Categories:</span>
+            {% for category in job.Categories.all %}
+              <span class="bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">{{ category.name }}</span>
+            {% endfor %}
+          </div>
+
+          <div class="tags">
+            <span class="text-xs font-bold text-gray-400 self-center uppercase tracking-wider mr-1">Job Type:</span>
+            {% for type in job.job_type %}
+              <span class="bg-blue-50 text-blue-700 border border-blue-100">{{ type }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 sm:mt-0">
+        <a href="{% url 'job_detail' job.id %}" 
+           class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-5 py-2.5 rounded-full shadow-md shadow-blue-500/20 transition-all duration-200 hover:-translate-y-0.5">
+          View Details <i class="fas fa-chevron-right ml-2 text-xs"></i>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <!-- Empty State -->
+  <div class="bg-white rounded-3xl border border-gray-100 p-12 text-center shadow-sm">
+    <div class="w-16 h-16 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center mx-auto mb-4">
+      <i class="fas fa-briefcase-blank text-2xl"></i>
+    </div>
+    <h5 class="text-lg font-bold text-gray-800 mb-1">No jobs found</h5>
+    <p class="text-gray-500 text-sm">No listings matched your selected filters. Try unchecking some categories or job types.</p>
+  </div>
+{% endif %}
+{% comment %} <h4>All Jobs</h4>
 <p>Showing {{ data.count }} results</p>
 
 {% if data %}
@@ -31,4 +89,4 @@
 {% endfor %}
 {% else %}
 <p>No jobs found matching your filters.</p>
-{% endif %}
+{% endif %} {% endcomment %}

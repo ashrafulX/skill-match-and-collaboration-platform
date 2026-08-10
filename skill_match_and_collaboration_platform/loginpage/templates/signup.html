@@ -1,108 +1,108 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+
 {% block content %}
+<div class="max-w-xl mx-auto my-12 px-4 sm:px-6">
+    <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+        
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 sm:p-8 text-white text-center shadow-sm">
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight flex items-center justify-center">
+                <i class="fas fa-user-plus mr-3 text-blue-200"></i> Sign Up
+            </h1>
+            <p class="text-blue-100 text-sm mt-1">Create your TalentDock account to get started</p>
+        </div>
 
+        <!-- Form Body -->
+        <div class="p-6 sm:p-10">
+
+            <!-- Django Messages -->
+            {% if messages %}
+                <div class="mb-6 space-y-2">
+                    {% for m in messages %}
+                        <div class="px-4 py-3 rounded-2xl text-sm font-semibold text-center bg-rose-50 text-rose-700 border border-rose-200">
+                            {{ m }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" class="space-y-5" novalidate>
+                {% csrf_token %}
+
+                <!-- Non-Field Errors -->
+                {% if form.non_field_errors %}
+                    <div class="space-y-2">
+                        {% for er in form.non_field_errors %}
+                            <div class="bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 rounded-2xl text-xs sm:text-sm font-medium text-center">
+                                {{ er }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <!-- Form Fields Loop -->
+                <div class="space-y-4">
+                    {% for fm in form %}
+                        <div class="space-y-2">
+                            <label for="{{ fm.id_for_label }}" class="block text-sm font-bold text-gray-700">
+                                {{ fm.label }}
+                                {% if fm.field.required %}<span class="text-blue-600">*</span>{% endif %}
+                            </label>
+                            
+                            <div class="relative">
+                                {{ fm }}
+                            </div>
+
+                            {% if fm.help_text %}
+                                <p class="text-xs text-gray-500 mt-1">{{ fm.help_text }}</p>
+                            {% endif %}
+
+                            {% if fm.errors %}
+                                <p class="text-xs text-rose-600 font-semibold mt-1">{{ fm.errors|striptags }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-4">
+                    <button type="submit" 
+                            class="w-full inline-flex justify-center items-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-8 py-3.5 rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
+                        <i class="fas fa-user-plus mr-2"></i> Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Input styling for standard Django form fields -->
 <style>
-    .signupForm {
-        width: 40%;
-        margin: 2rem auto;
-        padding: 2rem;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        background-color: #fdfdfd;
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    form h1 {
-        text-align: center;
-        color: #444;
-        font-size: 1.8rem;
-        font-weight: bold;
-        margin-bottom: 1.5rem;
-    }
-
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-
-    .form-group label {
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-        display: block;
-        color: #555;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
         width: 100%;
-        padding: 0.75rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-        font-size: 1rem;
-        margin-top: 0.25rem;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-        border-color: #007bff;
+        padding: 0.75rem 1rem;
+        border-radius: 1rem;
+        border: 1px solid #e5e7eb;
+        background-color: #f9fafb;
+        font-size: 0.95rem;
+        transition: all 0.2s ease-in-out;
         outline: none;
-        box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
     }
 
-    button {
-        display: block;
-        width: 100%;
-        padding: 0.75rem;
-        background-color: #007bff;
-        color: #fff;
-        font-size: 1.1rem;
-        font-weight: bold;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    button:hover {
-        background-color: #0056b3;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .messages {
-        text-align: center;
-        margin-bottom: 1rem;
-        font-size: 1rem;
-        color: #d9534f;
-        background-color: #f8d7da;
-        padding: 0.5rem;
-        border-radius: 5px;
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    textarea:focus,
+    select:focus {
+        border-color: #2563eb;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
     }
 </style>
-
-{% if messages %}
-    <div class="messages">
-        {% for m in messages %}
-            <small {% if m.tags %} class="{{m.tags}}" {% endif %}>{{m}}</small>
-        {% endfor %}
-    </div>
-{% endif %}
-
-<form method="post" class="signupForm" novalidate>
-    <h1>Sign Up</h1>
-    {% csrf_token %}
-    {% for fm in form %}
-        <div class="form-group">
-            {{ fm.label_tag }}
-            {{ fm }}
-            <small class="text-danger">{{ fm.errors|striptags }}</small>
-        </div>
-    {% endfor %}
-
-    <button class="btn btn-primary" type="submit">Submit</button>
-</form>
-
 {% endblock %}
