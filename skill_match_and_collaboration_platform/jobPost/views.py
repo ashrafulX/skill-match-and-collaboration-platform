@@ -37,7 +37,10 @@ class DeleteJobPostView(DeleteView):
 
 
 def detail(request, id):
-    job = get_object_or_404(JobPost, pk=id)
+    job = get_object_or_404(
+        JobPost.objects.select_related('author').prefetch_related('Required_Technical_Skills'),
+        pk=id,
+    )
     form = ApplicationForm()
     return render(request, 'details.html', {'job': job, 'form': form})
 
@@ -65,7 +68,10 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def application_detail_view(request, application_id):
-    application = get_object_or_404(Application, id=application_id)
+    application = get_object_or_404(
+        Application.objects.select_related('author', 'JobPost__author'),
+        id=application_id,
+    )
 
     # Ensure only the applicant or the job post author can view the application details
     if application.author != request.user and application.JobPost.author != request.user:
@@ -76,7 +82,7 @@ def application_detail_view(request, application_id):
 # Application View
 @login_required
 def application_view(request, id):
-    job = get_object_or_404(JobPost, id=id)
+    job = get_object_or_404(JobPost.objects.select_related('author'), id=id)
 
     if job.author == request.user:
         return redirect('job_detail', id=id)
@@ -103,7 +109,10 @@ def application_view(request, id):
 # Manage Application View
 @login_required
 def manage_application(request, application_id, action):
-    application = get_object_or_404(Application, id=application_id)
+    application = get_object_or_404(
+        Application.objects.select_related('author', 'JobPost__author'),
+        id=application_id,
+    )
 
     # Ensure only the JobPost author can manage the application
     if request.user != application.JobPost.author:
@@ -140,6 +149,6 @@ def manage_application(request, application_id, action):
 # Notifications View
 @login_required
 def notifications_view(request):
-    notifications = request.user.notifications.all()
+    notifications = request.user.notifications.select_related('application')
     notifications.update(is_read=True)
     return render(request, 'notifications.html', {'notifications': notifications})

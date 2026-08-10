@@ -133,7 +133,9 @@ class UserPostView(ListView):
     context_object_name = 'data'
 
     def get_queryset(self):
-        return JobPost.objects.filter(author=self.request.user)
+        return JobPost.objects.filter(author=self.request.user).prefetch_related(
+            'Required_Technical_Skills'
+        )
  
 
 from django.contrib.auth.decorators import login_required 

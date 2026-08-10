@@ -23,7 +23,7 @@
 
           <div class="tags">
             <span class="text-xs font-bold text-gray-400 self-center uppercase tracking-wider mr-1">Categories:</span>
-            {% for category in job.Categories.all %}
+            {% for category in job.Required_Technical_Skills.all %}
               <span class="bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">{{ category.name }}</span>
             {% endfor %}
           </div>

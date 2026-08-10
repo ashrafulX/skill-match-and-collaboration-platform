@@ -6,7 +6,7 @@
   <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-gray-100 pb-4">
     <h4 class="text-2xl font-extrabold text-gray-900 tracking-tight">Your Job Posts</h4>
     <p class="text-sm font-semibold text-gray-500 mt-1 sm:mt-0">
-      Showing <span class="text-blue-600 font-bold">{{ data.count }}</span> results
+      Showing <span class="text-blue-600 font-bold">{{ data|length }}</span> results
     </p>
   </div>
 
@@ -65,7 +65,7 @@
           <!-- Job Categories -->
           <div class="flex flex-wrap items-center gap-1.5 text-xs">
             <strong class="font-bold text-gray-700 mr-1">Categories:</strong>
-            {% for category in job.Categories.all %}
+            {% for category in job.Required_Technical_Skills.all %}
               <span class="bg-gray-100 text-gray-700 font-semibold px-2.5 py-1 rounded-full border border-gray-200/60">
                 {{ category.name }}
               </span>
